@@ -45,6 +45,7 @@ func LenderProfileEdit(c echo.Context) error {
 	}
 
 	payloadRules := govalidator.MapData{
+		"id":       []string{"unrequired"},
 		"name":     []string{},
 		"type":     []string{},
 		"address":  []string{},
