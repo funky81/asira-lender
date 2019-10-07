@@ -6,8 +6,7 @@ ARG ENV="dev"
 RUN useradd -rm -d /go/src/asira_lender -s /bin/bash -g root -G sudo -u 1000 golang
 USER golang
 
-ADD . $GOPATH/src/"${APPNAME}"
-WORKDIR $GOPATH/src/"${APPNAME}"
+WORKDIR /go/src/asira_lender
 
 RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
