@@ -7,7 +7,6 @@ RUN useradd -ms /bin/sh newuser
 USER newuser
 WORKDIR /go/src/asira_lender
 
-
 RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
 
