@@ -3,10 +3,10 @@ FROM golang:alpine
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
+RUN useradd -ms /bin/bash newuser
+USER newuser
 WORKDIR /go/src/asira_lender
-RUN addgroup -S root
-RUN adduser -S -D -h /go/src/asira_lender appuser root
-RUN chown -R appuser:root /go/src
+
 
 RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
