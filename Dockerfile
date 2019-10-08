@@ -11,18 +11,7 @@ RUN apk add --update git gcc libc-dev;
 
 RUN go get -u github.com/golang/dep/cmd/dep
 
-CMD if [ "${ENV}" = "dev" ] ; then \
-        cp deploy/dev-config.yaml config.yaml ; \
-    fi \
-    && dep ensure -v \
-    && go build -v -o /go/bin/asira_lender \
-    # run app mode
-    && "${APPNAME}" run \
-    # update db structure
-    && if [ "${ENV}" = "dev"] ; then \
-        "${APPNAME}" migrate up \
-        && "${APPNAME}" seed ; \
-    fi \
-    && go test tests/*_test.go -failfast -v ;
+COPY . /go/src/asira_lender
+RUN go build
 
 EXPOSE 8000
