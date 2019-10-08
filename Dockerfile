@@ -3,7 +3,7 @@ FROM golang:alpine
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
-RUN useradd -ms /bin/sh newuser
+RUN useradd -ms newuser
 USER newuser
 WORKDIR /go/src/asira_lender
 
