@@ -3,8 +3,8 @@ FROM golang:alpine
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
-ADD . $GOPATH/src/"${APPNAME}"
-WORKDIR $GOPATH/src/"${APPNAME}"
+ADD . /go/src/asira_lender
+WORKDIR /go/src/asira_lender
 
 RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
@@ -15,7 +15,7 @@ CMD if [ "${ENV}" = "dev" ] ; then \
         cp deploy/dev-config.yaml config.yaml ; \
     fi \
     && dep ensure -v \
-    && go build -v -o $GOPATH/bin/"${APPNAME}" \
+    && go build -v -o /go/bin/asira_lender \
     # run app mode
     && "${APPNAME}" run \
     # update db structure
