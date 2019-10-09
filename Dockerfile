@@ -3,7 +3,8 @@ FROM golang:alpine
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
-RUN adduser -D -g '' newuser
+RUN adduser -D -g '' golang
+USER golang
 
 ADD . $GOPATH/src/"${APPNAME}"
 WORKDIR $GOPATH/src/"${APPNAME}"
