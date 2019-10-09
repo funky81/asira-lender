@@ -25,6 +25,6 @@ CMD if [ "${ENV}" = "dev" ] ; then \
     fi \
     && go test tests/*_test.go -failfast -v ;
  
-RUN chown root:root /tmp/dep*
+RUN chown root:root /tmp
 
 EXPOSE 8000
