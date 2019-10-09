@@ -29,9 +29,13 @@ ARG ENV="dev"
 
 WORKDIR /app/
 COPY --from=build-env $GOPATH/src/"${APPNAME}"/"${APPNAME}-res" /app/
+COPY --from=build-env $GOPATH/src/"${APPNAME}"/config.yaml /app/
 
 RUN ls -alh
 RUN ls -alh /app/
-ENTRYPOINT /app/asira_lender-res
+#ENTRYPOINT /app/asira_lender-res
+CMD ["/app/asira_lender-res","run"]
+CMD ["/app/asira_lender-res","migrate","up"]
+CMD ["/app/asira_lender-res","seed"]
 
 EXPOSE 8000
