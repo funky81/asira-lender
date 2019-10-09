@@ -26,6 +26,6 @@ COPY --from=build-env $GOPATH/src/"${APPNAME}" /app/
 
 RUN ls -alh
 RUN ls -alh /app/
-ENTRYPOINT ./app/"${APPNAME}"
+RUN "${APPNAME}"
 
 EXPOSE 8000
