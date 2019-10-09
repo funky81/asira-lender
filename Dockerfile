@@ -25,12 +25,12 @@ RUN pwd
 FROM alpine
 
 WORKDIR /go/src/
-COPY --from=build-env /go/src/asira_lender /go/src/asira_lender
+COPY --from=build-env /go/src/asira_lender/asira_lender-res /go/src/asira_lender
 COPY --from=build-env /go/src/asira_lender/deploy/dev-config.yaml /go/src/config.yaml
 RUN pwd
 #ENTRYPOINT /app/asira_lender-res
-CMD ["/go/src/asira_lender/asira_lender-res","run"]
-CMD ["/go/src/asira_lender/asira_lender-res","migrate","up"]
-CMD ["/go/src/asira_lender/asira_lender-res","seed"]
+CMD ["/go/src/asira_lender","run"]
+CMD ["/go/src/asira_lender","migrate","up"]
+CMD ["/go/src/asira_lender","seed"]
 
 EXPOSE 8000
