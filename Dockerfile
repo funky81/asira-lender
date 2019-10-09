@@ -1,6 +1,6 @@
 FROM golang:alpine
 
-USER nobody
+USER root
 
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
