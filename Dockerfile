@@ -1,5 +1,7 @@
 FROM golang:alpine
 
+USER nobody
+
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
