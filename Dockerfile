@@ -1,6 +1,6 @@
 FROM golang:alpine
 
-ARG APPNAME="asira-lender"
+ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
 ADD . $GOPATH/src/"${APPNAME}"
@@ -12,10 +12,9 @@ RUN apk add --update git gcc libc-dev;
 RUN go get -u github.com/golang/dep/cmd/dep
 
 CMD if [ "${ENV}" = "dev" ] ; then \
-        sudo cp deploy/dev-config.yaml config.yaml ; \
+        cp deploy/dev-config.yaml config.yaml ; \
     fi \
-    && attrib -R +S vendor \
-    && dep ensure -v \
+    && dep ensure -v $GOPATH/src/"${APPNAME}" \
     && go build -v -o $GOPATH/bin/"${APPNAME}" \
     # run app mode
     && "${APPNAME}" run \
