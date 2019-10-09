@@ -4,13 +4,14 @@ ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
 RUN adduser -D -g '' golang
-USER golang
+USER root
 
 ADD . $GOPATH/src/"${APPNAME}"
 WORKDIR $GOPATH/src/"${APPNAME}"
 
 RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
+RUN go get -u github.com/golang/dep/cmd/dep
 
 CMD if [ "${ENV}" = "dev" ] ; then \
         cp deploy/dev-config.yaml config.yaml ; \
