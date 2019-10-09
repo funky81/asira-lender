@@ -18,9 +18,12 @@ CMD if [ "${ENV}" = "dev" ] ; then \
     && sudo dep ensure -v \
     && sudo go build -v -o $GOPATH/bin/"${APPNAME}" \
     # run app mode
-    && sudo "${APPNAME}" run \
-
-RUN go get ./
-RUN go build
+    && "${APPNAME}" run \
+    # update db structure
+    && if [ "${ENV}" = "dev"] ; then \
+        "${APPNAME}" migrate up \
+        && "${APPNAME}" seed ; \
+    fi \
+    && go test tests/*_test.go -failfast -v ;
 
 EXPOSE 8000
