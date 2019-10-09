@@ -18,6 +18,8 @@ CMD if [ "${ENV}" = "dev" ] ; then \
     fi \
     && dep ensure -v \
     && go build -v -o "${APPNAME}" 
+RUN ls -alh $GOPATH/src/
+RUN ls -alh $GOPATH/src/"{APPNAME}"
 
 FROM alpine
 WORKDIR $GOPATH/src/"${APPNAME}"
