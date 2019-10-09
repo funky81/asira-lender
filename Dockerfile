@@ -1,28 +1,24 @@
 FROM golang:alpine
 
 ARG APPNAME="asira_lender"
-ARG ENV="dev"
 
-ADD . $GOPATH/src/"${APPNAME}"
-WORKDIR $GOPATH/src/"${APPNAME}"
+RUN apk add --no-cache git
+RUN go get github.com/golang/dep/cmd/dep
 
-RUN apk add --update git gcc libc-dev;
-#  tzdata wget gcc libc-dev make openssl py-pip;
+# Gopkg.toml and Gopkg.lock lists project dependencies
+# These layers will only be re-built when Gopkg files are updated
+COPY Gopkg.lock Gopkg.toml /go/src/"${APPNAME}"
+WORKDIR /go/src/"${APPNAME}"
+# Install library dependencies
+RUN dep ensure -vendor-only
 
-RUN go get -u github.com/golang/dep/cmd/dep
+# Copy all project and build it
+# This layer will be rebuilt when ever a file has changed in the project directory
+COPY . /go/src/"${APPNAME}"
+RUN go build -o /bin/"${APPNAME}"
 
-CMD if [ "${ENV}" = "dev" ] ; then \
-        cp deploy/dev-config.yaml config.yaml ; \
-    fi \
-    && dep ensure -v \
-    && go build -v -o $GOPATH/bin/"${APPNAME}" \
-    # run app mode
-    && "${APPNAME}" run \
-    # update db structure
-    && if [ "${ENV}" = "dev"] ; then \
-        "${APPNAME}" migrate up \
-        && "${APPNAME}" seed ; \
-    fi \
-    && go test tests/*_test.go -failfast -v ;
-
-EXPOSE 8000
+# This results in a single layer image
+FROM scratch
+COPY --from=build /bin/"${APPNAME}" /bin/"${APPNAME}"
+ENTRYPOINT ["/bin/"${APPNAME}""]
+CMD ["--help"]
