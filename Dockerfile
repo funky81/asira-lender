@@ -20,10 +20,11 @@ RUN go build -v -o "${APPNAME}-res"
 
 RUN ls -alh $GOPATH/src/
 RUN ls -alh $GOPATH/src/"${APPNAME}"
+RUN pwd
 
 FROM alpine
 WORKDIR /app/
-COPY --from=build-env $GOPATH/src/"${APPNAME}-res" /app/
+COPY --from=build-env $GOPATH/src/"${APPNAME}"/"${APPNAME}-res" /app/
 
 RUN ls -alh
 RUN ls -alh /app/
