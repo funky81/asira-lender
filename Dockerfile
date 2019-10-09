@@ -14,7 +14,6 @@ RUN go get -u github.com/golang/dep/cmd/dep
 CMD if [ "${ENV}" = "dev" ] ; then \
         cp deploy/dev-config.yaml config.yaml ; \
     fi \
-    && dep ensure -v $GOPATH/src/"${APPNAME}" \
     && go build -v -o $GOPATH/bin/"${APPNAME}" \
     # run app mode
     && "${APPNAME}" run \
