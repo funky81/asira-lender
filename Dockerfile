@@ -2,7 +2,6 @@ FROM golang:alpine
 
 ARG APPNAME="asira_lender"
 
-RUN apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
 
 # Gopkg.toml and Gopkg.lock lists project dependencies
