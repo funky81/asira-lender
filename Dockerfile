@@ -13,11 +13,10 @@ RUN apk add --update git gcc libc-dev;
 #  tzdata wget gcc libc-dev make openssl py-pip;
 RUN go get -u github.com/golang/dep/cmd/dep
 
-CMD if [ "${ENV}" = "dev" ] ; then \
-        cp deploy/dev-config.yaml config.yaml ; \
-    fi \
-    && dep ensure -v \
-    && go build -v -o "${APPNAME}" 
+RUN cp deploy/dev-config.yaml config.yaml
+RUN dep ensure -v
+RUN go build -v -o "${APPNAME}"
+
 RUN ls -alh $GOPATH/src/
 RUN ls -alh $GOPATH/src/"${APPNAME}"
 
