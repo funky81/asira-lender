@@ -24,18 +24,12 @@ RUN pwd
 
 FROM alpine
 
-ARG APPNAME="asira_lender"
-ARG ENV="dev"
-
-WORKDIR /app/
-COPY --from=build-env $GOPATH/src/"${APPNAME}"/"${APPNAME}-res" /app/
-COPY --from=build-env $GOPATH/src/"${APPNAME}"/config.yaml /app/
-
-RUN ls -alh
-RUN ls -alh /app/
+WORKDIR /go/src/
+COPY --from=build-env /go/src/asira_lender /go/src/asira_lender
+RUN pwd
 #ENTRYPOINT /app/asira_lender-res
-CMD ["/app/asira_lender-res","run"]
-CMD ["/app/asira_lender-res","migrate","up"]
-CMD ["/app/asira_lender-res","seed"]
+CMD ["/go/src/asira_lender/asira_lender-res","run"]
+CMD ["/go/src/asira_lender/asira_lender-res","migrate","up"]
+CMD ["/go/src/asira_lender/asira_lender-res","seed"]
 
 EXPOSE 8000
