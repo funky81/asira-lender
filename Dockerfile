@@ -3,7 +3,7 @@ FROM golang:alpine
 ARG APPNAME="asira_lender"
 ARG ENV="dev"
 
-RUN mkdir -p /go/src/asira_lender
+ADD . $GOPATH/src/"${APPNAME}"
 WORKDIR $GOPATH/src/"${APPNAME}"
 
 RUN apk add --update git gcc libc-dev;
