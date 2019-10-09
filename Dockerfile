@@ -25,7 +25,7 @@ FROM alpine
 WORKDIR $GOPATH/src/"${APPNAME}"
 COPY --from=build-env $GOPATH/src/"${APPNAME}" /app/
 
-RUN ls -alh /app/"${APPNAME}"
+RUN ls -alh /app/
 ENTRYPOINT ./app/"${APPNAME}"
 
 EXPOSE 8000
