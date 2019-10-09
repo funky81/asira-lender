@@ -32,6 +32,6 @@ COPY --from=build-env $GOPATH/src/"${APPNAME}"/"${APPNAME}-res" /app/
 
 RUN ls -alh
 RUN ls -alh /app/
-ENTRYPOINT /app/"${APPNAME}-res"
+ENTRYPOINT /app/"asira_lender-res"
 
 EXPOSE 8000
