@@ -23,6 +23,10 @@ RUN ls -alh $GOPATH/src/"${APPNAME}"
 RUN pwd
 
 FROM alpine
+
+ARG APPNAME="asira_lender"
+ARG ENV="dev"
+
 WORKDIR /app/
 COPY --from=build-env $GOPATH/src/"${APPNAME}"/"${APPNAME}-res" /app/
 
